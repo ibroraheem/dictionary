@@ -3,6 +3,7 @@ searchInput = wrapper.querySelector("input"),
 volume = wrapper.querySelector(".word i"),
 infoText = wrapper.querySelector(".info-text"),
 synonyms = wrapper.querySelector(".synonyms .list"),
+meaning = wrapper.querySelector(".word p"),
 removeIcon = wrapper.querySelector(".search span");
 let audio;
 
@@ -13,7 +14,7 @@ function data(result, word){
         wrapper.classList.add("active");
         let definitions = result[0].meanings[0].definitions[0],
         phontetics = `${result[0].meanings[0].partOfSpeech}  /${result[0].phonetics[0].text}/`;
-        document.querySelector(".word p").innerText = result[0].word;
+        meaning.innerText = result[0].word;
         document.querySelector(".word span").innerText = phontetics;
         document.querySelector(".meaning span").innerText = definitions.definition;
         document.querySelector(".example span").innerText = definitions.example;
@@ -57,10 +58,13 @@ searchInput.addEventListener("keyup", e =>{
 
 volume.addEventListener("click", ()=>{
     volume.style.color = "#4D59FB";
-    audio.play();
     setTimeout(() =>{
         volume.style.color = "#999";
     }, 800);
+    let utterance;
+    utterance = new SpeechSynthesisUtterance(meaning.innerText)
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
 });
 
 removeIcon.addEventListener("click", ()=>{
