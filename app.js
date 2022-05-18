@@ -4,6 +4,7 @@ volume = wrapper.querySelector(".word i"),
 infoText = wrapper.querySelector(".info-text"),
 synonyms = wrapper.querySelector(".synonyms .list"),
 meaning = wrapper.querySelector(".word p"),
+aud = wrapper.querySelector(".meaning span");
 removeIcon = wrapper.querySelector(".search span");
 let audio;
 
@@ -58,13 +59,16 @@ searchInput.addEventListener("keyup", e =>{
 
 volume.addEventListener("click", ()=>{
     volume.style.color = "#4D59FB";
-    setTimeout(() =>{
-        volume.style.color = "#999";
-    }, 800);
     let utterance;
     utterance = new SpeechSynthesisUtterance(meaning.innerText)
     utterance.lang = "en-US";
     speechSynthesis.speak(utterance);
+    utterance = new SpeechSynthesisUtterance(aud.innerText)
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+    setTimeout(() =>{
+        volume.style.color = "#999";
+    }, 2000);
 });
 
 removeIcon.addEventListener("click", ()=>{
